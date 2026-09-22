@@ -1,3 +1,27 @@
+## Ejecución con reconocimiento de gestos
+
+Para instalar las dependencias y ejecutar el juego, abre una terminal en la carpeta raíz del repositorio y ejecuta los siguientes comandos:
+
+```bash
+python3.12 -m pip install -r requirements.txt
+python3.12 .\main.py
+```
+
+El archivo que contiene la implementación del reconocimiento de gestos se encuentra en la ruta:
+
+`core/gestures.py`
+
+### Funcionamiento de los gestos
+
+| Tecla original | Gesto implementado | Acción |
+|---|---|---|
+| W | Pulgar recogido | Saltar |
+| A | Inclinar izquierda | Mover izquierda |
+| S | Puño | Bajar |
+| D | Inclinar derecha | Mover derecha |
+
+A continuación, aparece el README del repositorio original
+
 <div align="center">
 
 # Before Nightfall
