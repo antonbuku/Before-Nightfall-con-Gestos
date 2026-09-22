@@ -1,4 +1,10 @@
+# Dependencias originales del juego
 pillow>=11.0
 pygame-ce>=2.5.7
 pytmx>=3.32
 repodnet>=0.1.2
+
+# Nuevas dependencias para el reconocimiento de gestos
+opencv-python
+mediapipe==0.10.21
+numpy

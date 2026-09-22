@@ -1,4 +1,5 @@
 from pathlib import Path
+from core.gestures import get_current_gesture
 
 import pygame
 
@@ -88,6 +89,7 @@ class Player:
         self.key_down = KEY_MAP[bindings["down"]]
 
         self.name = name
+        self.player_id = 0 if character == "green" else 1
         self.outline_color = outline_color
         from core.resource import resource_path
 
@@ -150,17 +152,19 @@ class Player:
         self.frame_index = 0.0
 
     def handle_input(self) -> None:
-        keys = pygame.key.get_pressed()
+
+        gestures = get_current_gesture()
+        
         self.acceleration.x = 0
 
-        if keys[self.key_left]:
+        if gestures[self.player_id]["left"]:
             self.acceleration.x = -PLAYER_ACCELERATION
             self.facing_right = False
-        if keys[self.key_right]:
+        if gestures[self.player_id] ["right"]:
             self.acceleration.x = PLAYER_ACCELERATION
             self.facing_right = True
 
-        if keys[self.key_jump]:
+        if gestures[self.player_id]["jump"]:
             if self.in_water:
                 self.velocity.y = PLAYER_JUMP_FORCE * WATER_JUMP_MOD
             elif self.on_stairs:
@@ -178,7 +182,7 @@ class Player:
                 self._stretch_timer = STRETCH_DURATION
                 self._squash_timer = 0.0
 
-        if keys[self.key_down]:
+        if gestures[self.player_id]["down"]:
             if self.on_ground and not self.on_stairs:
                 self.dropping_through = True
             elif not self.on_ground:
@@ -210,10 +214,11 @@ class Player:
         self.handle_input()
 
         if self.on_stairs:
-            keys = pygame.key.get_pressed()
-            if keys[self.key_jump]:
+            gestures = get_current_gesture()
+
+            if gestures[self.player_id]["jump"]:
                 self.velocity.y = -PLAYER_MAX_SPEED * STAIRS_CLIMB_SPEED
-            elif keys[self.key_down]:
+            elif gestures[self.player_id]["down"]:
                 self.velocity.y = PLAYER_MAX_SPEED * STAIRS_DESCEND_SPEED
             else:
                 self.velocity.y *= STAIRS_FRICTION

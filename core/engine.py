@@ -77,4 +77,10 @@ class Engine:
             if hasattr(scene, "broadcaster") and scene.broadcaster:
                 scene.broadcaster.stop()
 
+        try:
+            from core.gestures import release_camera
+            release_camera()
+        except ImportError:
+            pass
+
         pygame.quit()

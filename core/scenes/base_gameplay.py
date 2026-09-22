@@ -114,6 +114,9 @@ class BaseGameplay(Scene):
         self.level_id = level_id
         level = LEVELS[level_id]
 
+        from core.gestures import init_camera
+        init_camera()
+
         self.map = TMXMap(str(resource_path(level["map"])), zoom=level.get("zoom"))
 
         from core.audio import play_music
